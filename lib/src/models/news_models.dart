@@ -47,13 +47,13 @@ class Article {
   });
 
   Source source;
-  String author;
+  String? author;
   String title;
-  String description;
+  String? description;
   String url;
-  String urlToImage;
+  String? urlToImage;
   DateTime publishedAt;
-  String content;
+  String? content;
 
   factory Article.fromJson(Map<String, dynamic> json) => Article(
         source: Source.fromJson(json["source"]),
