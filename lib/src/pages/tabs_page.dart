@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:newspaper/src/pages/tab1_page.dart';
 import 'package:provider/provider.dart';
 
+import 'tab2_page.dart';
+
 class TabsScreen extends StatelessWidget {
   const TabsScreen({Key? key}) : super(key: key);
 
@@ -51,9 +53,7 @@ class _Paginas extends StatelessWidget {
       physics: const NeverScrollableScrollPhysics(),
       children: [
         Tab1Screen(),
-        Container(
-          color: Colors.green,
-        ),
+        Tab2Screen(),
       ],
     );
   }
