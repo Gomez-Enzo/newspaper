@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:newspaper/src/services/news_services.dart';
+import 'package:newspaper/src/widgets/lista_noticias.dart';
 import 'package:provider/provider.dart';
 
 class Tab1Screen extends StatelessWidget {
@@ -8,10 +9,8 @@ class Tab1Screen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final newsService = Provider.of<NewsService>(context);
-    return const Scaffold(
-      body: Center(
-        child: Text('Tab1Screen'),
-      ),
+    return Scaffold(
+      body: ListaNoticias(noticias: newsService.headlines),
     );
   }
 }

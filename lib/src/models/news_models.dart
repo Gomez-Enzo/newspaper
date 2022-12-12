@@ -37,13 +37,13 @@ class NewsResponse {
 class Article {
   Article({
     required this.source,
-    required this.author,
+    this.author,
     required this.title,
-    required this.description,
+    this.description,
     required this.url,
-    required this.urlToImage,
+    this.urlToImage,
     required this.publishedAt,
-    required this.content,
+    this.content,
   });
 
   Source source;
