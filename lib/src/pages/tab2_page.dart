@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:newspaper/src/models/category_model.dart';
 import 'package:newspaper/src/services/news_services.dart';
+import 'package:newspaper/src/widgets/lista_noticias.dart';
 import 'package:provider/provider.dart';
 
 class Tab2Screen extends StatelessWidget {
@@ -8,11 +9,16 @@ class Tab2Screen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final newsService = Provider.of<NewsService>(context);
     return SafeArea(
       child: Scaffold(
           body: Column(
         children: [
-          Expanded(child: _ListaCategorias()),
+          _ListaCategorias(),
+          Expanded(
+            child: ListaNoticias(
+                noticias: newsService.getArticleCategoriaSeleccionada),
+          ),
         ],
       )),
     );
@@ -27,27 +33,31 @@ class _ListaCategorias extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final categories = Provider.of<NewsService>(context).categories;
-    return ListView.builder(
-      physics: BouncingScrollPhysics(),
-      scrollDirection: Axis.horizontal,
-      itemCount: categories.length,
-      itemBuilder: (BuildContext context, int index) {
-        final cName = categories[index].name;
-        return Padding(
-          padding: EdgeInsets.all(8),
-          child: Column(
-            children: [
-              _CategoryButton(
-                categoria: categories[index],
-              ),
-              SizedBox(
-                height: 5,
-              ),
-              Text('${cName[0].toUpperCase()}${cName.substring(1)}')
-            ],
-          ),
-        );
-      },
+    return SizedBox(
+      width: double.infinity,
+      height: 80,
+      child: ListView.builder(
+        physics: BouncingScrollPhysics(),
+        scrollDirection: Axis.horizontal,
+        itemCount: categories.length,
+        itemBuilder: (BuildContext context, int index) {
+          final cName = categories[index].name;
+          return Padding(
+            padding: EdgeInsets.all(8),
+            child: Column(
+              children: [
+                _CategoryButton(
+                  categoria: categories[index],
+                ),
+                SizedBox(
+                  height: 5,
+                ),
+                Text('${cName[0].toUpperCase()}${cName.substring(1)}')
+              ],
+            ),
+          );
+        },
+      ),
     );
   }
 }
@@ -60,6 +70,7 @@ class _CategoryButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final newsService = Provider.of<NewsService>(context, listen: false);
     return GestureDetector(
       onTap: () {
         final newsService = Provider.of<NewsService>(context, listen: false);
@@ -76,7 +87,9 @@ class _CategoryButton extends StatelessWidget {
         ),
         child: Icon(
           categoria.icon,
-          color: Colors.black54,
+          color: newsService.selectedCategory == categoria.name
+              ? Colors.red
+              : Colors.black54,
         ),
       ),
     );
