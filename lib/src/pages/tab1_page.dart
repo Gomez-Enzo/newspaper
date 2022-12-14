@@ -25,6 +25,5 @@ class _Tab1ScreenState extends State<Tab1Screen>
   }
 
   @override
-  // TODO: implement wantKeepAlive
   bool get wantKeepAlive => true;
 }
