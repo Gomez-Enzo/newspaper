@@ -39,7 +39,7 @@ class NewsService with ChangeNotifier {
   getTopHeadlines() async {
     final url = Uri.parse('$_urlNews/top-headlines?apiKey=$_apiKey&country=us');
     final resp = await http.get(url);
-    final newsResponse = newsResponseFromJson(resp.body);
+    final newsResponse = NewsResponse.fromRawJson(resp.body);
     headlines.addAll(newsResponse.articles);
     notifyListeners();
   }
@@ -51,7 +51,7 @@ class NewsService with ChangeNotifier {
     final url = Uri.parse(
         '$_urlNews/top-headlines?apiKey=$_apiKey&country=us&category=$category');
     final resp = await http.get(url);
-    final newsResponse = newsResponseFromJson(resp.body);
+    final newsResponse = NewsResponse.fromRawJson(resp.body);
     categoryArticles[category]!.addAll(newsResponse.articles);
     notifyListeners();
   }

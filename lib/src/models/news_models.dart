@@ -4,11 +4,6 @@
 
 import 'dart:convert';
 
-NewsResponse newsResponseFromJson(String str) =>
-    NewsResponse.fromJson(json.decode(str));
-
-String newsResponseToJson(NewsResponse data) => json.encode(data.toJson());
-
 class NewsResponse {
   NewsResponse({
     required this.status,
@@ -19,6 +14,9 @@ class NewsResponse {
   String status;
   int totalResults;
   List<Article> articles;
+
+  factory NewsResponse.fromRawJson(String str) =>
+      NewsResponse.fromJson(json.decode(str) as Map<String, dynamic>);
 
   factory NewsResponse.fromJson(Map<String, dynamic> json) => NewsResponse(
         status: json["status"],
